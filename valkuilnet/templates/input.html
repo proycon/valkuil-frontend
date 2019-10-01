@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" >
+    <head>
+        <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8"/>
+        <meta name="author" content="Maarten van Gompel" />
+        <title>VALKUIL.net Spellingcorrector</title>
+        <link rel="StyleSheet" href="{{ style }}" type="text/css" />
+        <script type="text/javascript" src="{{jquery}}"></script>
+        <script type="text/javascript" src="{{rotatescript}}"></script>
+        <script type="text/javascript" src="{{ script }}"></script>
+        <link rel="shortcut icon" href="{{ icon }}" />
+        <script type="text/javascript">
+            $(document).ready( function(){
+                    initloader();
+            } );
+
+        </script>
+    </head>
+    <body>
+        <div id="stage">
+            <div id="header">
+            </div>
+            <div id="topbar">
+                <ul>
+                	<li> <a href="https://www.facebook.com/Valkuil"><img src="/style/facebook2.jpg" alt="Valkuil.net op facebook" title="Valkuil.net op facebook!" /></a> <a href="https://www.twitter.com/valkuilnet"><img src="/style/twitter2.png" alt="Valkuil.net op twitter" title="Valkuil.net op twitter!" /></a> </li>
+                    <li><a href="/info">Over VALKUIL.net</a></li>
+                    <li><a id="showadvanced" onclick="$('#advancedoptions').show(); $('#showadvanced').hide();">Toon geavanceerde opties</a></li>
+                    <li><a id="sharethis">Deel deze site!</a></li>
+                </ul>
+            </div>
+            <div id="browsernotice"></div>
+            <form id="inputform" action="/process/" method="post" enctype="multipart/form-data">
+             <div id="editorarea">
+                <label class="top">Typ of plak hier uw tekst:</label>
+                <textarea name="text" id="editor" spellcheck="false"></textarea>
+             </div>
+             <div id="uploadarea">
+                <label class="top">Of upload hier uw tekstdocument:</label>
+                <input id="filenamefield" type="text" readonly="readonly" />
+                <button class="button" onclick="$('#uploadfield').click(); return false;">selecteer bestand</button>
+                <input id="uploadfield" name="uploadfile" type="file" onchange="$('#filenamefield').val($('#uploadfield').val().replace('C:\\fakepath\\',''));" />
+
+
+                <div id="advancedoptions">
+                    <label>Zekerheid bij correctie van fouten:</label><br />
+                    <select name="sensitivity">
+                        <option value="0.5">Erg onzeker</option>
+                        <option value="0.625">Onzeker</option>
+                        <option value="0.75" selected="selected">Neutraal</option>
+                        <option value="0.825">Zeker</option>
+                        <option value="0.95">Erg zeker</option>
+                    </select>
+                </div>
+             </div>
+             <div id="startarea">
+                <div id="optinarea">
+                    <input id="optin" type="checkbox" name="donate" value="yes" /> <span id="optintext">Gevonden taalfouten mogen gebruikt worden<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;voor wetenschappelijk onderzoek</span>
+                    <input type="hidden" name="checksum" id="checksum" />
+                </div>
+                <button id="startbutton" class="button">voer spellingcorrectie uit</button>
+             </div>
+            </form>
+            <div id="footer">
+            </div>
+        </div>
+        <div id="veil"></div>
+        <div id="loaderwrapper">
+            <div id="loader"></div>
+            <div id="loadertext">De spellingcorrectie draait, een ogenblik geduld...</div>
+        </div>
+        <div id="sharedialog">
+            <h3>Deel deze site!</h3>
+              <ul>
+                    <li><a class="facebook" href="https://www.facebook.com/sharer.php?u=http://valkuil.net/"  title="Share this on Facebook" >Facebook</a></li>
+                    <li><a class="twitter" href="https://twitter.com/home?status=Valkuil.net Spellingcorrector - http://valkuil.net/" title="Tweet This Page" >Twitter</a></li>
+              </ul>
+        </div>
+    </body>
+</html>
