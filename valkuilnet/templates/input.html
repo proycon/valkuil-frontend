@@ -10,10 +10,11 @@
         <script type="text/javascript" src="{{ script }}"></script>
         <link rel="shortcut icon" href="{{ icon }}" />
         <script type="text/javascript">
-            $(document).ready( function(){
-                    initloader();
-            } );
-
+            function showloader() {
+                $('#veil').show();
+                $('#loaderwrapper').show();
+                $('#loader').animate({rotate: '360'}, 2000, 'linear', function(showloader));
+            }
         </script>
     </head>
     <body>
@@ -22,10 +23,10 @@
             </div>
             <div id="topbar">
                 <ul>
-                	<li> <a href="https://www.facebook.com/Valkuil"><img src="/style/facebook2.jpg" alt="Valkuil.net op facebook" title="Valkuil.net op facebook!" /></a> <a href="https://www.twitter.com/valkuilnet"><img src="/style/twitter2.png" alt="Valkuil.net op twitter" title="Valkuil.net op twitter!" /></a> </li>
+                	<li> <a href="https://www.facebook.com/Valkuil"><img src="/static/facebook2.jpg" alt="Valkuil.net op facebook" title="Valkuil.net op facebook!" /></a> <a href="https://www.twitter.com/valkuilnet"><img src="/static/twitter2.png" alt="Valkuil.net op twitter" title="Valkuil.net op twitter!" /></a> </li>
                     <li><a href="/info">Over VALKUIL.net</a></li>
                     <li><a id="showadvanced" onclick="$('#advancedoptions').show(); $('#showadvanced').hide();">Toon geavanceerde opties</a></li>
-                    <li><a id="sharethis">Deel deze site!</a></li>
+                    <li><a id="sharethis" onclick="$('#sharedialog').show();">Deel deze site!</a></li>
                 </ul>
             </div>
             <div id="browsernotice"></div>
@@ -71,9 +72,11 @@
         <div id="sharedialog">
             <h3>Deel deze site!</h3>
               <ul>
-                    <li><a class="facebook" href="https://www.facebook.com/sharer.php?u=http://valkuil.net/"  title="Share this on Facebook" >Facebook</a></li>
-                    <li><a class="twitter" href="https://twitter.com/home?status=Valkuil.net Spellingcorrector - http://valkuil.net/" title="Tweet This Page" >Twitter</a></li>
+                    <li><a class="facebook" href="https://www.facebook.com/sharer.php?u=https://valkuil.net/"  title="Share this on Facebook" >Facebook</a></li>
+                    <li><a class="twitter" href="https://twitter.com/home?status=Valkuil.net Spellingcorrector - https://valkuil.net/" title="Tweet This Page" >Twitter</a></li>
+                    <li><a id="closeshare" onclick="$('#sharedialog').hide();">Sluit dit venster</a></li>
               </ul>
+
         </div>
     </body>
 </html>

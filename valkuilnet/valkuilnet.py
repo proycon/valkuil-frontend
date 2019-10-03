@@ -40,7 +40,7 @@ def statics():
 def inputform():
     return render_template("input.html", **statics())
 
-@app.route('/about/')
+@app.route('/info/')
 def about():
     return render_template("about.html", **statics())
 
