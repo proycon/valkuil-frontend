@@ -75,7 +75,7 @@ def process():
 
     #create CLAM client
     if 'username' in settings:
-        client = clam.common.client.CLAMClient(settings['url'],settings['username'], settings['password'])
+        client = clam.common.client.CLAMClient(settings['url'],settings['username'], settings['password'], basicauth=True)
     else:
         client = clam.common.client.CLAMClient(settings['url'])
 
@@ -119,7 +119,7 @@ def process():
                 outputfile.copy(os.path.join(tmpdir, doc_id + '.xml'))
                 found = True
         elif outputfile == 'error.log':
-                outputfile.copy(os.path.join(tmpdir, doc_id + '.log'))
+            outputfile.copy(os.path.join(tmpdir, doc_id + '.log'))
 
 
 
