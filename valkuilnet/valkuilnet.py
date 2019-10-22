@@ -109,8 +109,11 @@ def process():
 
     #retrieve output file
     found = False
+    redirect_error = None
+    url = None
     for outputfile in clamdata.output:
         if str(outputfile)[-4:] == '.xml':
+            #there should be only one FoLiA output file
             try:
                 outputfile.loadmetadata()
             except:
@@ -118,19 +121,24 @@ def process():
             if outputfile.metadata.provenance.outputtemplate_id == 'foliaoutput' and not found:
                 outputfile.copy(os.path.join(tmpdir, doc_id + '.xml'))
                 found = True
+                response = requests.get(str(outputfile) + "/flatviewer", auth=(settings['username'],settings['password']))
+                if response.status_code == 302:
+                    url = r.headers['Location']
+                else:
+                    redirect_error = response.status_code
         elif outputfile == 'error.log':
             outputfile.copy(os.path.join(tmpdir, doc_id + '.log'))
-
-
-
-    if not found:
-        return render_template('error.html', **statics().update({'errormessage': "Unable to retrieve file from CLAM service", 'debugmessage': " ".join([ str(x) for x in clamdata.output ])  }))
 
     #remove project
     client.delete(doc_id)
 
-    #TODO: get forward URL from CLAM
-    return redirect('/' + doc_id + '/')
+    if redirect_error:
+        return render_template('error.html',**statics().update({'errormessage': "Internal connection problem; Unable to visualise output (connection to FLAT failed with HTTP {redirect_error}".format(redirect_error=redirect_error),'debugmessage':str(e)} ))
+    elif found:
+        return redirect(url)
+    else:
+        return render_template('error.html', **statics().update({'errormessage': "Unable to retrieve file from CLAM service", 'debugmessage': " ".join([ str(x) for x in clamdata.output ])  }))
+
 
 
 
